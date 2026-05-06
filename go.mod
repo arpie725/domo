@@ -10,6 +10,7 @@ require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
 	golang.org/x/term v0.5.0
 	google.golang.org/protobuf v1.34.2
+	tinygo.org/x/bluetooth v0.15.0
 )
 
 require (

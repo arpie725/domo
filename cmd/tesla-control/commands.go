@@ -353,6 +353,33 @@ var commands = map[string]*Command{
 			return car.ChangeClimateTemp(ctx, degrees, degrees)
 		},
 	},
+		"climate-keeper": {
+		help:             "Set climate keeper mode (off, on, dog, camp)",
+		requiresAuth:     true,
+		requiresFleetAPI: false,
+		args: []Argument{
+			{name: "MODE", help: "off | on | keep | dog | camp (or 0-3)"},
+		},
+		handler: func(ctx context.Context, _ *account.Account, car *vehicle.Vehicle, args map[string]string) error {
+			modeStr := strings.ToLower(strings.TrimSpace(args["MODE"]))
+
+			var mode vehicle.ClimateKeeperMode
+			switch modeStr {
+			case "off", "0":
+				mode = vehicle.ClimateKeeperModeOff
+			case "on", "keep", "1":
+				mode = vehicle.ClimateKeeperModeOn
+			case "dog", "2":
+				mode = vehicle.ClimateKeeperModeDog
+			case "camp", "3":
+				mode = vehicle.ClimateKeeperModeCamp
+			default:
+				return fmt.Errorf("invalid mode '%s'. Valid options: off, on/keep, dog, camp (or numbers 0-3)", args["MODE"])
+			}
+
+			return car.SetClimateKeeperMode(ctx, mode, false)
+		},
+	},
 	"add-key": {
 		help:             "Add PUBLIC_KEY to vehicle whitelist with ROLE and FORM_FACTOR",
 		requiresAuth:     true,
