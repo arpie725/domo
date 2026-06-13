@@ -70,7 +70,7 @@ func runCheck() {
 	fmt.Println("No user present → Scanning for beacon...")
 	
 	// scan for the beacon
-	cmd := exec.Command("./ibeacon")
+	cmd := exec.Command("./ibeacons")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
